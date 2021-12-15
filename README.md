@@ -9,7 +9,7 @@ support:
 
     mkdir -p ~/.vim/bundle/vim-mini_enhancement
     cd ~/.vim/bundle/vim-mini_enhancement
-    git clone https://github.com/jaandrle/vim-mini_enhancement.git
+    git clone -b main --single-branch https://github.com/jaandrle/vim-mini_enhancement.git --depth 1
 
 In `.vimrc`:
 
