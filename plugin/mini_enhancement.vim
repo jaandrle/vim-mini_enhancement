@@ -33,14 +33,17 @@ cnoremap "" ""<Left>
 cnoremap '' ''<Left>
 cnoremap `` ``<Left>
 
-vnoremap <silent> * :<C-u>call VisualSelection('')<CR>/<C-R>=@/<CR><CR>
-vnoremap <silent> # :<C-u>call VisualSelection('')<CR>?<C-R>=@/<CR><CR>
-function! VisualSelection(direction) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
-    let l:pattern = escape(@", "\\/.*'$^~[]")
-    let @/ = substitute(l:pattern, "\n$", "", "")
-    let @" = l:saved_reg
+vnoremap * :<c-u>let @/= escape(mini_enhancement#selectedText(), "\\/.*'$^~[]")<cr>/<c-r>/<cr>
+vnoremap # :<c-u>let @/= escape(mini_enhancement#selectedText(), "\\/.*'$^~[]")<cr>?<c-r>?<cr>
+function! mini_enhancement#selectedText()
+    " from https://stackoverflow.com/a/6271254
+    let [line_start, column_start] = getpos("'<")[1:2]
+    let [line_end, column_end] = getpos("'>")[1:2]
+    let lines = getline(line_start, line_end)
+    if len(lines) == 0 | return '' | endif
+    let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+    let lines[0] = lines[0][column_start - 1:]
+    return join(lines, "\n")
 endfunction
 
 " #region Finish
