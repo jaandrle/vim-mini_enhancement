@@ -13,6 +13,7 @@ nnoremap Y y$
 
 inoremap <c-u> <c-g>u<c-u>
 inoremap <c-w> <c-g>u<c-w>
+inoremap <cr> <c-g>u<cr>
 inoremap . <c-g>u.
 inoremap , <c-g>u,
 inoremap ; <c-g>u;
